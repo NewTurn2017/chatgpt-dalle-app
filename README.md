@@ -25,6 +25,7 @@ source myenv/bin/activate
 pip install -r requirements.txt
 ```
 ### OpenAI API KEY 입력
+.streamlit/secrets.toml 파일에서 키 입력
 
 ### Running the App
 ```shell
