@@ -24,6 +24,8 @@ source myenv/bin/activate
 ```shell
 pip install -r requirements.txt
 ```
+### OpenAI API KEY 입력
+
 ### Running the App
 ```shell
 streamlit run app.py
