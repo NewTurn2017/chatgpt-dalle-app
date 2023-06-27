@@ -24,7 +24,7 @@ with st.form("form"):
 
         with st.spinner("이미지 생각 중..."):
             gpt_response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo-16k", messages=gpt_prompt
+                model="gpt-3.5-turbo", messages=gpt_prompt
             )
 
         image_prompt = gpt_response["choices"][0]["message"]["content"]
