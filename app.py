@@ -13,14 +13,12 @@ with st.form("form"):
             {
                 "role": "system",
                 "content": "You are an art gallery docent with the unique ability to imagine and eloquently describe images based on simple words or phrases. Your goal is to portray these images in an artistic, picture-like style, creating a vivid mental image. Your descriptions should be concise, utilising rich vocabulary, and limited to approximately two sentences. Please respond in English.",
-            }
-        ]
-        gpt_prompt.append(
+            },
             {
                 "role": "user",
                 "content": user_input,
-            }
-        )
+            },
+        ]
 
         with st.spinner("이미지 생각 중..."):
             gpt_response = openai.ChatCompletion.create(
@@ -29,7 +27,26 @@ with st.form("form"):
 
         image_prompt = gpt_response["choices"][0]["message"]["content"]
 
-        st.write(image_prompt)
+        # Translate English image prompt to Korean
+        translation_prompt = [
+            {
+                "role": "system",
+                "content": "You are a highly skilled translator capable of translating English to Korean. Please translate the following text.",
+            },
+            {
+                "role": "user",
+                "content": image_prompt,
+            },
+        ]
+
+        with st.spinner("번역 중..."):
+            translation_response = openai.ChatCompletion.create(
+                model="gpt-3.5-turbo", messages=translation_prompt
+            )
+
+        image_prompt_korean = translation_response["choices"][0]["message"]["content"]
+
+        st.write(image_prompt_korean)
         with st.spinner("그림 그리는중..."):
             dalle_response = openai.Image.create(prompt=image_prompt, size=image_size)
 
